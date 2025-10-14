@@ -4,7 +4,7 @@ class ConexionBD:
     def __init__(self):
         self.conexion = ''
 
-    def establecerConexionDB(self):
+    def establecerConexionBD(self):
         try:
             self.conexion = pyodbc.connect('DRIVER={SQL Server};SERVER=SALAF008-17\SQLEXPRESS;DATABASE=bdsistema;UID=sa;PWD=Password01')
             print('conexion exitosa!')

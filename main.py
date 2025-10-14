@@ -1,8 +1,8 @@
-from modelo.productodao import ProductoDAO
+from modelo.clientedao import ClienteDAO
 
 def main():
-    productodao = ProductoDAO()
-    productodao.listarProducto()
+    clientedao = ClienteDAO()
+    clientedao.contarClientes()
 
 if __name__ == '__main__':
     main()

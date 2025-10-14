@@ -1,7 +1,7 @@
 class Producto:
     def __init__(self):
-        id_producto: int = 0
-        clave: str = ''
-        descripción: str = ''
-        existencia: int = 0
-        precio: float = 0
+        self.id_producto: int = 0
+        self.clave: str = ''
+        self.descripcion: str = ''  # Sin tilde
+        self.existencia: int = 0
+        self.precio: float = 0
