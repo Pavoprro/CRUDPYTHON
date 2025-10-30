@@ -12,9 +12,8 @@ class ProductoDAO:
         sp = "exec [dbo].[sp_listar_productos]"
         cursor.execute(sp)
         filas = cursor.fetchall()
-        for fila in filas:
-            print(fila)
         self.bd.cerrarConexionBD()
+        return filas
 
     def guardarProducto(self):
         self.bd.establecerConexionBD()
@@ -22,14 +21,14 @@ class ProductoDAO:
         param = (self.producto.clave, self.producto.descripcion, self.producto.existencia, self.producto.precio)
         cursor = self.bd.conexion.cursor()
         cursor.execute(sp, param)
-        self.bd.conexion.commit()  # Cambiado: commit en la conexión
+        self.bd.conexion.commit()  
         print("✅ Producto guardado correctamente en la BD")
         self.bd.cerrarConexionBD()
 
     def actualizarProducto(self):
         self.bd.establecerConexionBD()
-        sp = "exec [dbo].[sp_actualizar_producto] @id_producto=?, @clave=?, @descripcion=?, @existencia=?, @precio=?"
-        param = (self.producto.id_producto, self.producto.clave, self.producto.descripcion, self.producto.existencia, self.producto.precio)
+        sp = "exec [dbo].[sp_actualizar_producto] @clave=?, @descripcion=?, @existencia=?, @precio=?"
+        param = (self.producto.clave, self.producto.descripcion, self.producto.existencia, self.producto.precio)
         cursor = self.bd.conexion.cursor()
         cursor.execute(sp, param)
         cursor.commit()
@@ -38,8 +37,8 @@ class ProductoDAO:
 
     def eliminarProducto(self):
         self.bd.establecerConexionBD()
-        sp = "exec [dbo].[sp_eliminar_producto] @id_producto=?"
-        param = (self.producto.id_producto)
+        sp = "exec [dbo].[sp_eliminar_producto] @clave=?"
+        param = (self.producto.clave)
         cursor = self.bd.conexion.cursor()
         cursor.execute(sp, param)
         cursor.commit()
@@ -55,3 +54,14 @@ class ProductoDAO:
         print(cantidad[0])
         cursor.commit()
         self.bd.cerrarConexionBD()
+    
+    def buscarProducto(self):
+        self.bd.establecerConexionBD()
+        cursor = self.bd.conexion.cursor()
+        sp = "exec [dbo].[sp_buscar_producto] @clave = ?"
+        param = [self.producto.clave]
+        cursor.execute(sp,param)
+        filas = cursor.fetchall()
+        self.bd.cerrarConexionBD()
+        return filas
+    
